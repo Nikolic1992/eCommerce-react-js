@@ -11,6 +11,7 @@ function CategoryComponent() {
   const { allCategory, isLoading } = useSelector(
     (state) => state.categoryStore
   );
+
   const dispatch = useDispatch();
   useEffect(() => {
     CategoryService.getAllCategory()
