@@ -9,7 +9,7 @@ import CategoryComponent from "./components/CategoryComponent";
 // AXIOS
 import axios from "axios";
 
-axios.defaults.baseURL = "https://fakestoreapi.com";
+axios.defaults.baseURL = "https://api.escuelajs.co/api/v1";
 
 function AppLayout() {
   const [activeHeader, setActiveHeader] = useState(true);
