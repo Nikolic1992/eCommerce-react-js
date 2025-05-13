@@ -28,7 +28,7 @@ function CategoryComponent() {
     <div className="bg-lightGray flex items-center h-[100%] py-[10px]">
       <div className="container mx-auto flex items-center gap-[20px] h-full flex-col lg:flex-row">
         <button
-          className="bg-mainBlue px-[20px] py-[10px] text-textWhite rounded-lg cursor-pointer"
+          className="bg-mainBlue px-[20px] py-[10px] text-textWhite rounded-lg cursor-pointer hover:bg-mainYellow transition-all duration-500"
           onClick={handleToggleCategory}
         >
           Show Categories
