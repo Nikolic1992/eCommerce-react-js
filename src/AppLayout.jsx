@@ -9,7 +9,7 @@ import CategoryComponent from "./components/CategoryComponent";
 // AXIOS
 import axios from "axios";
 
-axios.defaults.baseURL = "https://api.escuelajs.co/api/v1";
+axios.defaults.baseURL = "https://dummyjson.com";
 
 function AppLayout() {
   const [activeHeader, setActiveHeader] = useState(true);
@@ -24,3 +24,5 @@ function AppLayout() {
 }
 
 export default AppLayout;
+
+

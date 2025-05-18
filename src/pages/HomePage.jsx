@@ -12,7 +12,7 @@ function HomePage() {
   useEffect(() => {
     ProductService.getAllProductsService()
       .then((res) => {
-        dispatch(saveAllProductsAction(res.data));
+        dispatch(saveAllProductsAction(res.data.products));
       })
       .catch((err) => console.log(err));
   }, []);

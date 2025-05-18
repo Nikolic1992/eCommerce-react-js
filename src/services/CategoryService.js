@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class CategoryService {
-  static getAllCategory = () => axios.get("/categories?limit=20");
+  static getAllCategory = () => axios.get("/products/categories");
 }
 
 export default CategoryService;

@@ -1,7 +1,7 @@
 import { Rating } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function CardComponent({ product }) {
-  let randomRating = Math.floor(Math.random() * 6);
   return (
     <div className="w-[400px] border border-grayColor rounded-[20px] flex flex-col items-center justify-center">
       <div className="w-[full]">
@@ -14,12 +14,14 @@ function CardComponent({ product }) {
       <h3>{product.title}</h3>
       <h4>${product.price}</h4>
 
-      {/* There was no rating in this API so i had to improvise with Math.random etc... */}
-      <Rating name="read-only" value={randomRating} readOnly />
+      <Rating name="read-only" readOnly value={product.rating} />
 
-      <button className="bg-mainBlue text-textWhite px-[18px] py-[8px] rounded-lg my-[20px] hover:bg-mainYellow transition-all duration-300 cursor-pointer">
+      <Link
+        to={`/singleProduct/${product.id}`}
+        className="bg-mainBlue text-textWhite px-[18px] py-[8px] rounded-lg my-[20px] hover:bg-mainYellow transition-all duration-300 cursor-pointer"
+      >
         View More
-      </button>
+      </Link>
     </div>
   );
 }
