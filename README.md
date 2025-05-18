@@ -17,3 +17,4 @@ It uses Tailwind CSS and Material UI for styling, and includes routing, icons, a
 🔄 Page routing  
 🔔 Toast messages  
 📱 Responsive design  
+🔐 User login & signup with Clerk
