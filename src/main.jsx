@@ -13,6 +13,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 
 // PAGES
 import HomePage from "./pages/HomePage.jsx";
+import SingleProductPage from "./pages/SingleProductPage.jsx";
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/singleProduct/:id",
+        element: <SingleProductPage />,
       },
     ],
   },

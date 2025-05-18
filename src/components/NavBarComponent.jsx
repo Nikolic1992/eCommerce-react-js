@@ -10,13 +10,16 @@ import {
 
 // ICONS
 import { CiUser, CiHeart, CiShoppingCart } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 function NavBarComponent() {
   return (
     <div className=" bg-mainBlue h-full lg:h-[100px] flex items-center py-[10px]">
       {/* Logo */}
       <div className="container mx-auto flex justify-between items-center flex-col lg:flex-row gap-[15px]">
-        <img src={logo} alt="Logo image - ELECTRON" />
+        <Link to={"/"}>
+          <img src={logo} alt="Logo image - ELECTRON" />
+        </Link>
 
         {/* Search bar*/}
         <div className="bg-textWhite rounded-[20px]">
