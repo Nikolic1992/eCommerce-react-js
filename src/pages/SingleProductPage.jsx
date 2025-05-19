@@ -9,12 +9,15 @@ import { FaCheck } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { FaShippingFast } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { saveInCartAction } from "../store/cartSlice";
 
 function SingleProductPage() {
   const [singleProduct, setSingleProduct] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [countProduct, setCountProduct] = useState(1);
+  const dispatch = useDispatch();
   let { id } = useParams();
 
   useEffect(() => {
@@ -28,6 +31,10 @@ function SingleProductPage() {
 
   function handleImage(index) {
     setCurrentImage(index);
+  }
+
+  function handleProductCart() {
+    dispatch(saveInCartAction(singleProduct));
   }
 
   return (
@@ -122,7 +129,10 @@ function SingleProductPage() {
               </div>
             </div>
             <div className="flex items-center mt-[30px] gap-[30px]">
-              <button className="bg-mainYellow text-textWhite px-[30px] py-[14px] rounded-lg cursor-pointer">
+              <button
+                className="bg-mainYellow text-textWhite px-[30px] py-[14px] rounded-lg cursor-pointer"
+                onClick={handleProductCart}
+              >
                 Add To Cart
               </button>
               <div className="bg-[#EEEEEE] p-[10px] rounded-full cursor-pointer">

@@ -10,9 +10,13 @@ import {
 
 // ICONS
 import { CiUser, CiHeart, CiShoppingCart } from "react-icons/ci";
+//REDUX
+import { useSelector } from "react-redux";
+// ROUTER
 import { Link } from "react-router-dom";
 
 function NavBarComponent() {
+  const { totalProduct } = useSelector((state) => state.cartStore);
   return (
     <div className=" bg-mainBlue h-full lg:h-[100px] flex items-center py-[10px]">
       {/* Logo */}
@@ -54,9 +58,11 @@ function NavBarComponent() {
           <div className="flex items-center gap-[5px]">
             <CiShoppingCart color="white" size={24} />
             <span className="w-[20px] h-[20px] flex items-center justify-center bg-mainYellow text-textWhite rounded-full">
-              0
+              {totalProduct ? totalProduct : 0}
             </span>{" "}
-            <span className="text-textWhite text-[18px]">Cart</span>
+            <Link to={"/cart"} className="text-textWhite text-[18px]">
+              Cart
+            </Link>
           </div>
         </div>
       </div>
