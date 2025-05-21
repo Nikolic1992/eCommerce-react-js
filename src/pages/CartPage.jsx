@@ -5,15 +5,26 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useSelector } from "react-redux";
+
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteFromCartAction,
+  increaseQuantityAction,
+  decreaseQuantityAction,
+} from "../store/cartSlice";
 
 // ICONS
 import { RxCross1 } from "react-icons/rx";
 
 function CartPage() {
-  // LOCAL STORAGE
+  const { cart, totalPrice } = useSelector((state) => state.cartStore);
+  const dispatch = useDispatch();
 
-  const { cart } = useSelector((state) => state.cartStore);
+  function handleRemoveProduct(product) {
+    dispatch(deleteFromCartAction(product));
+  }
+
   return (
     <div className="mt-[50px]">
       <div className="container mx-auto flex flex-col lg:flex-row gap-[20px]">
@@ -53,10 +64,10 @@ function CartPage() {
             <TableBody>
               {cart.map((product) => (
                 <TableRow
-                  key={product.name}
+                  key={product.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="product">
+                  <TableCell component="th" scope="row">
                     <img
                       src={product.thumbnail}
                       alt=""
@@ -66,23 +77,37 @@ function CartPage() {
                   <TableCell align="center">${product.price}</TableCell>
                   <TableCell align="center">
                     <div className="flex items-center justify-center">
-                      <button className="bg-slate-300 text-[18px] px-[8px] py-[4px] border border-gray-500 cursor-pointer">
+                      <button
+                        className="bg-slate-300 text-[18px] px-[8px] py-[4px] border border-gray-500 cursor-pointer"
+                        onClick={() =>
+                          dispatch(decreaseQuantityAction(product))
+                        }
+                      >
                         -
                       </button>
                       <span className="bg-slate-300 text-[18px] px-[20px] py-[4px] border border-gray-500">
-                        {product.count}
+                        {product.quantity}
                       </span>
-                      <button className="bg-slate-300 text-[18px] px-[8px] py-[4px] border border-gray-500 cursor-pointer">
+                      <button
+                        className="bg-slate-300 text-[18px] px-[8px] py-[4px] border border-gray-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={() =>
+                          dispatch(increaseQuantityAction(product))
+                        }
+                        disabled={product.quantity >= product.stock} // disables button if quantity >= stock
+                      >
                         +
                       </button>
                     </div>
                   </TableCell>
-                  <TableCell align="center">${product.cartTotal}</TableCell>
+                  <TableCell align="center">
+                    ${product.totalItemPrice}
+                  </TableCell>
                   <TableCell align="right">
                     <button>
                       <RxCross1
                         size={24}
                         className="text-[#ff0000] mr-[8px] cursor-pointer"
+                        onClick={() => handleRemoveProduct(product)}
                       />
                     </button>
                   </TableCell>
@@ -91,8 +116,13 @@ function CartPage() {
             </TableBody>
           </Table>
         </TableContainer>
+
         <div className="w-full lg:w-[30%]">
-          <h2>CART TOTAL</h2>
+          <h2 className="text-[24px] font-semibold mb-2">CART TOTAL</h2>
+          <div className="text-[20px]">
+            <span className="font-medium">Total Price:</span>{" "}
+            <span className="font-bold">${totalPrice}</span>
+          </div>
         </div>
       </div>
     </div>

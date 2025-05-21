@@ -17,9 +17,13 @@ import { Link } from "react-router-dom";
 
 function NavBarComponent() {
   const { totalProduct } = useSelector((state) => state.cartStore);
+
+  const favourites = useSelector(
+    (state) => state.favouritesStore.allFavourites
+  );
+
   return (
     <div className=" bg-mainBlue h-full lg:h-[100px] flex items-center py-[10px]">
-      {/* Logo */}
       <div className="container mx-auto flex justify-between items-center flex-col lg:flex-row gap-[15px]">
         <Link to={"/"}>
           <img src={logo} alt="Logo image - ELECTRON" />
@@ -51,9 +55,11 @@ function NavBarComponent() {
           <div className="flex items-center gap-[5px]">
             <CiHeart color="white" size={24} />
             <span className="w-[20px] h-[20px] flex items-center justify-center bg-mainYellow text-textWhite rounded-full">
-              0
+              {favourites.length}
             </span>{" "}
-            <span className="text-textWhite text-[18px]">Favourites</span>
+            <Link to="/favourites" className="text-textWhite text-[18px]">
+              Favourites
+            </Link>
           </div>
           <div className="flex items-center gap-[5px]">
             <CiShoppingCart color="white" size={24} />
