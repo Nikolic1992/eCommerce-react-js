@@ -80,9 +80,11 @@ function HomePage() {
           })}
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="flex items-center justify-center">
+          <span className="loader"></span>
+        </div>
       )}
-      {!searchProduct && !selectCategory && (
+      {!searchProduct && !selectCategory && isLoading && (
         <div className="flex items-center justify-center py-[50px]">
           <button
             className="bg-mainBlue px-[20px] py-[10px] text-textWhite rounded-lg cursor-pointer hover:bg-mainYellow transition-all duration-500"
