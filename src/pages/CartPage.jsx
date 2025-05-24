@@ -1,3 +1,5 @@
+import { useRef, useState } from "react";
+// Material UI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -18,11 +20,18 @@ import {
 import { RxCross1 } from "react-icons/rx";
 
 function CartPage() {
+  const [activeCode, setActiveCode] = useState("");
+  const couponRef = useRef();
   const { cart, totalPrice } = useSelector((state) => state.cartStore);
   const dispatch = useDispatch();
 
   function handleRemoveProduct(product) {
     dispatch(deleteFromCartAction(product));
+  }
+
+  function handleApplyCoupon() {
+    setActiveCode(couponRef.current.value);
+    couponRef.current.value = "";
   }
 
   return (
@@ -117,11 +126,36 @@ function CartPage() {
           </Table>
         </TableContainer>
 
+        {/* INFO / CART */}
         <div className="w-full lg:w-[30%]">
-          <h2 className="text-[24px] font-semibold mb-2">CART TOTAL</h2>
-          <div className="text-[20px]">
-            <span className="font-medium">Total Price:</span>{" "}
-            <span className="font-bold">${totalPrice}</span>
+          <h2 className="text-textWhite bg-mainBlue py-[16px] text-center rounded-md">
+            CART TOTAL
+          </h2>
+          <span className="text-center text-[28px] font-extrabold">
+            Total Price: $
+            {activeCode === "discount" ? totalPrice / 2 : totalPrice}
+          </span>
+          <div className="flex flex-col">
+            <input
+              ref={couponRef}
+              type="text"
+              placeholder="Insert Coupon..."
+              className="p-[10px] border border-grayColor rounded-lg placeholder:text-mainBlue outline-none mt-[20px]"
+            />
+            <span className="text-[14px] text-grayColor">
+              Insert coupon for 50% discount!
+            </span>
+            <button
+              className={
+                activeCode === "discount"
+                  ? "bg-grayColor  text-black px-[16px] py-[8px] rounded-lg transition-all duration-300 cursor-not-allowed mt-[30px]"
+                  : "bg-mainBlue hover:bg-mainYellow text-white px-[16px] py-[8px] rounded-lg transition-all duration-300 cursor-pointer mt-[30px]"
+              }
+              onClick={handleApplyCoupon}
+              disabled={activeCode === "discount"}
+            >
+              {activeCode === "discount" ? "Coupon Applied!" : "Apply Coupon"}
+            </button>
           </div>
         </div>
       </div>

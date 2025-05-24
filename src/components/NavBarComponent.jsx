@@ -1,3 +1,4 @@
+import { useState } from "react";
 // LOGO
 import logo from "../assets/logo.png";
 // CLERK
@@ -11,16 +12,25 @@ import {
 // ICONS
 import { CiUser, CiHeart, CiShoppingCart } from "react-icons/ci";
 //REDUX
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // ROUTER
 import { Link } from "react-router-dom";
+import { saveSearchProductAction } from "../store/productSlice";
 
 function NavBarComponent() {
   const { totalProduct } = useSelector((state) => state.cartStore);
+  const [searchProducts, setSearchProducts] = useState("");
+
+  const dispatch = useDispatch();
 
   const favourites = useSelector(
     (state) => state.favouritesStore.allFavourites
   );
+
+  function handleSearchProduct() {
+    dispatch(saveSearchProductAction(searchProducts));
+    setSearchProducts("");
+  }
 
   return (
     <div className=" bg-mainBlue h-full lg:h-[100px] flex items-center py-[10px]">
@@ -35,8 +45,13 @@ function NavBarComponent() {
             type="text"
             placeholder="Search items here..."
             className="bg-transparent outline-none px-[25px] py-[15px] rounded-[20px] placeholder:text-mainYellow text-mainBlue"
+            value={searchProducts}
+            onChange={(e) => setSearchProducts(e.target.value)}
           />
-          <button className="bg-mainYellow text-textWhite px-[25px] py-[15px] rounded-[20px]">
+          <button
+            className="bg-mainYellow text-textWhite px-[25px] py-[15px] rounded-[20px] cursor-pointer"
+            onClick={handleSearchProduct}
+          >
             Search
           </button>
         </div>

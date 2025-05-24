@@ -5,6 +5,7 @@ import CategoryService from "../services/CategoryService";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { saveAllCategoryAction } from "../store/categorySlice";
+import { saveSelectCategoryAction } from "../store/productSlice";
 
 function CategoryComponent() {
   const [toggleCategory, setToggleCategory] = useState(false);
@@ -36,17 +37,30 @@ function CategoryComponent() {
 
         {isLoading ? (
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-[10px]">
-            {toggleCategory &&
-              allCategory.map((cat, index) => {
-                return (
-                  <li
-                    key={index}
-                    className="w-[200px] bg-mainBlue text-textWhite text-center rounded-lg px-[16px] py-[8px] hover:bg-mainYellow transition-all duration-500 cursor-pointer"
-                  >
-                    {cat.name}
-                  </li>
-                );
-              })}
+            {toggleCategory && (
+              <>
+                <li
+                  onClick={() => dispatch(saveSelectCategoryAction(""))}
+                  className="w-[200px] bg-mainBlue text-textWhite text-center rounded-lg px-[16px] py-[8px] hover:bg-mainYellow transition-all duration-500 cursor-pointer"
+                >
+                  All Categories
+                </li>
+
+                {allCategory.map((cat, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className="w-[200px] bg-mainBlue text-textWhite text-center rounded-lg px-[16px] py-[8px] hover:bg-mainYellow transition-all duration-500 cursor-pointer"
+                      onClick={() =>
+                        dispatch(saveSelectCategoryAction(cat.name))
+                      }
+                    >
+                      {cat.name}
+                    </li>
+                  );
+                })}
+              </>
+            )}
           </ul>
         ) : (
           <div>Loading Categories...</div>
